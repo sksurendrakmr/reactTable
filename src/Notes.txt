@@ -1,0 +1,15 @@
+Having to build some sort of a table to visualize the data
+is inevitable.
+
+Building our own table component can be challengin and
+time consuming.
+
+React table is a collection of hooks for Building
+powerful tables and data grid experiences.
+These hooks are lightweight, composable, and ultra-extensible.
+
+But the do not render any markup or styles for you i.e.
+react table doesn't render or supply any actual UI elements.
+
+So its a table utility and not a table component.
+
