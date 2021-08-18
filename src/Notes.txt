@@ -13,3 +13,10 @@ react table doesn't render or supply any actual UI elements.
 
 So its a table utility and not a table component.
 
+Basic table can be implemented in six steps:- 
+- Get the data we want to display
+- Defines the columns for our table
+- Use the data and columns defined to create a table instance using react-table
+- Define a basic table structure using plain HTML
+- Use the table instance created in step3 to bring life to the HTML defined in step4
+- Include the desired CSS
