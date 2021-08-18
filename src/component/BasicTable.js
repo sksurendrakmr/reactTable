@@ -18,6 +18,11 @@ That would definitely affect the components performance.
 A call to useTable will return a table instance which we will store in a 
 constant
 
+ */
+
+/**
+ * step 4
+ Define a basic table structure using HTML
 
  */
 
@@ -36,9 +41,18 @@ const BasicTable = () => {
         data
     });
     return (
-        <div>
-            
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
     )
 }
 
