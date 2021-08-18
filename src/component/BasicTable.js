@@ -24,36 +24,68 @@ constant
  * step 4
  Define a basic table structure using HTML
 
+ Step5 
+ we need to use table instance with our jsx to render all necessary UI.
+
+ getTableProps -> function that needs to be destructured on the table tag. 
+ getTableBodyProps -> function that needs to be destructured on the tbody tag. 
+ headerGroups -> this contains the column heading information which belongs inside 
+                the thead tag of the table.
+                headerGroups is an array which requires us to use the map method
+                to render the JSX for each headerGroup.
  */
 
-import React,{useMemo} from 'react'
-import {useTable} from 'react-table'
+import React, { useMemo } from 'react'
+import { useTable } from 'react-table'
 import MOCK_DATA from './MOCK_DATA.json'
-import {COLUMNS} from './columns'
-
+import { COLUMNS } from './columns'
+import './table.css'
 
 const BasicTable = () => {
+  const columns = useMemo(() => COLUMNS, [])
+  const data = useMemo(() => MOCK_DATA, [])
+  const tableInstance = useTable({
+    columns,
+    data,
+  })
 
-    const columns = useMemo(()=>COLUMNS,[]);
-    const data = useMemo(()=>MOCK_DATA,[]);
-    const tableInstance = useTable({
-        columns,
-        data
-    });
-    return (
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    )
+  //These are functions and arrays which is provided by react table to enable easy table creatation
+  //we have to use all these with HTML for react table work as intended
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    tableInstance
+  console.log(getTableBodyProps())
+  console.log(getTableProps())
+  console.log(headerGroups)
+  console.log(rows)
+
+  return (
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map((headerGrp) => (
+          <tr {...headerGrp.getHeaderGroupProps()}>
+            {headerGrp.headers.map((column) => (
+              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row)
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+              })}
+            </tr>
+          )
+        })}
+        <tr>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  )
 }
 
 export default BasicTable
