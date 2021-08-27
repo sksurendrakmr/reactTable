@@ -45,14 +45,20 @@ constant
   step-3 Add css according to the requirement
    */
 
+/**
+ * Header Groups - How to group header with react table.
+ *
+ */
+
 import React, { useMemo } from 'react'
 import { useTable } from 'react-table'
 import MOCK_DATA from './MOCK_DATA.json'
-import { COLUMNS } from './columns'
+import { COLUMNS, GROUPED_COLUMNS } from './columns'
 import './table.css'
 
 const BasicTable = () => {
-  const columns = useMemo(() => COLUMNS, [])
+  // const columns = useMemo(() => COLUMNS, [])
+  const columns = useMemo(() => GROUPED_COLUMNS, [])
   const data = useMemo(() => MOCK_DATA, [])
   const tableInstance = useTable({
     columns,
