@@ -18,6 +18,36 @@ step 4-> After rendering column header label, we can now add an icons
         to represent the sorted state of the column
  */
 
+/**
+ * Sorting and formatting
+ * If we have a date in string format, sorting would happen as if date
+ * coulmn is a string field and not date field.
+ *
+ * So we have to make sure that the data we provide to the table is not
+ * already formatted.
+ *
+ * Note: - React table needs proper date format as its input to support
+ * sorting
+ *But react table provide a simple way to format any column data.
+
+ In our case we want to format the date fields
+ In COLUMNS array, the column which we want to format, define another
+ property called Cell
+ 
+ The Cell property controls what is rendered in the UI.
+ Cell property is equal to a function and it receives a couple of things
+ as its argument but for this case we are only interested in the raw
+ value of the column.
+
+ When dealing with date column and sorting, make sure to preserve the date type
+ when passing the data into the react table.
+ For formatting use the Cell property for each column.
+ We will get access to the raw value of each row for that column and we can
+ transform that value into any desired format.
+
+ *
+ */
+
 import React, { useMemo } from 'react'
 import { useTable, useSortBy } from 'react-table'
 import MOCK_DATA from './MOCK_DATA.json'
@@ -44,6 +74,12 @@ const BasicTable = () => {
     prepareRow,
     footerGroups,
   } = tableInstance
+
+  const getSortedData = () => {
+    let sortedData = []
+    rows.map((row) => sortedData.push(row.values))
+    return sortedData
+  }
 
   return (
     <table {...getTableProps()}>

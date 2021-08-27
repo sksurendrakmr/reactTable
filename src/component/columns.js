@@ -12,8 +12,11 @@
 Note: - If a column is left out from the below columns array, it 
 would make it to the UI
 
-
  */
+
+import { format } from 'date-fns'
+//format is a function which we use to format the date field.
+
 export const COLUMNS = [
   {
     Header: 'Id', //ID columns
@@ -34,6 +37,9 @@ export const COLUMNS = [
     Header: 'Date of Birth',
     Footer: 'Date of Birth',
     accessor: 'date_of_birth',
+    Cell: ({ value }) => {
+      return format(new Date(value), 'dd/MM/yyyy')
+    },
   },
   {
     Header: 'Country',
