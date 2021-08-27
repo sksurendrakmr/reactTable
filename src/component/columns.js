@@ -15,28 +15,34 @@ would make it to the UI
 
  */
 export const COLUMNS = [
-    {
-        Header:'Id', //ID columns
-        accessor:'id', //we are defining the key which is present in the data
-    },
-    {
-        Header:'First Name',
-        accessor:'first_name',
-    },
-    {
-        Header:'Last Name',
-        accessor:'last_name',
-    },
-    {
-        Header:'Date of Birth',
-        accessor:'date_of_birth',
-    },
-    {
-        Header:'Country',
-        accessor:'country',
-    },
-    {
-        Header:'Phone',
-        accessor:'phone',
-    },
+  {
+    Header: 'Id', //ID columns
+    Footer: 'Id',
+    accessor: 'id', //we are defining the key which is present in the data
+  },
+  {
+    Header: 'First Name',
+    Footer: 'First Name',
+    accessor: 'first_name',
+  },
+  {
+    Header: 'Last Name',
+    Footer: 'Last Name',
+    accessor: 'last_name',
+  },
+  {
+    Header: 'Date of Birth',
+    Footer: 'Date of Birth',
+    accessor: 'date_of_birth',
+  },
+  {
+    Header: 'Country',
+    Footer: 'Country',
+    accessor: 'country',
+  },
+  {
+    Header: 'Phone',
+    Footer: 'Phone',
+    accessor: 'phone',
+  },
 ]

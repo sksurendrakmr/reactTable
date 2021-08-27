@@ -35,6 +35,16 @@ constant
                 to render the JSX for each headerGroup.
  */
 
+/**
+   To setup Footer
+  Step-1 In column.js, similarly the way we provide Header property
+  in each column, we will provide the header property.
+
+  step-2 we need to use react table to render the footer jsx.
+
+  step-3 Add css according to the requirement
+   */
+
 import React, { useMemo } from 'react'
 import { useTable } from 'react-table'
 import MOCK_DATA from './MOCK_DATA.json'
@@ -51,12 +61,14 @@ const BasicTable = () => {
 
   //These are functions and arrays which is provided by react table to enable easy table creatation
   //we have to use all these with HTML for react table work as intended
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance
-  console.log(getTableBodyProps())
-  console.log(getTableProps())
-  console.log(headerGroups)
-  console.log(rows)
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    footerGroups,
+  } = tableInstance
 
   return (
     <table {...getTableProps()}>
@@ -80,10 +92,16 @@ const BasicTable = () => {
             </tr>
           )
         })}
-        <tr>
-          <td></td>
-        </tr>
       </tbody>
+      <tfoot>
+        {footerGroups.map((footerGroup) => (
+          <tr {...footerGroup.getFooterGroupProps()}>
+            {footerGroup.headers.map((column) => (
+              <td {...column.getFooterProps()}>{column.render('Footer')}</td>
+            ))}
+          </tr>
+        ))}
+      </tfoot>
     </table>
   )
 }
