@@ -89,7 +89,7 @@ const PaginationTable = () => {
         </button>
         <button onClick={() => nextPage()} disabled={!canNextPage}>
           Next
-        </button>
+        </button>{' '}
         <span>
           Page{' '}
           <strong>
