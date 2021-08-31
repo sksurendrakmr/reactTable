@@ -38,21 +38,70 @@
         b) Assign it to the filter property on every column
  */
 
+/**
+    More on Filtering
+    
+    1.) What if we don't want column filter feature in some specific column
+    If we tried to comment or remove Filter property from that specific column
+    then we will get error in the browser.
+    so we cannot simply remove Filter property from a column.
+    If we want to disable filtering for a specific column then we need
+    to add another property called disable filters and set it to true.
+
+    Summary
+    So to disable column filtering, we will use disableFilters property
+
+    2.) About Default column property
+    Right now we have the Filter property equal to ColumnFilter and this is
+    the same for every single column in the table.
+    It would be better to specify this property once and ask react-table to add
+    it to every column.
+    This is where defaultColumn comes into picture.
+    step 1-> create a defaultColumn function that will return an object
+             with properties that need to be applied to every column in the table.
+    step 2-> This default column will then be passed into the useTable hook after
+            data in the first argument
+
+    Summary
+    use default column when we have to specify a common key value pair
+    for every column in the react table.
+
+    3) Debouncing our filter functionality
+    By default, the filtering is performed on every key up event in 
+    our global and column filters.But if we have thousand of data then the
+    table might not be as performant as we want it to be.
+
+    The solution is debounce our onChange event in the filters.
+    For that we make use of useAsynDebounce hook from react table.
+
+    In our case we will add debouncing to our global filter.
+    Summary-> make use of async debounce hook when we want to filter data.
+*/
+
 import React, { useMemo } from 'react'
 import { useTable, useSortBy, useGlobalFilter, useFilters } from 'react-table'
 import MOCK_DATA from '../MOCK_DATA.json'
 import { COLUMNS, GROUPED_COLUMNS } from '../columns'
 import SearchInput from '../GlobalFilter/SearchInput'
 import '../table.css'
+import ColumnSearchFilter from './ColumnSearchFilter'
 
 const ColumnFilterTable = () => {
   const columns = useMemo(() => COLUMNS, [])
   // const columns = useMemo(() => GROUPED_COLUMNS, [])
   const data = useMemo(() => MOCK_DATA, [])
+
+  const defaultColumn = useMemo(() => {
+    return {
+      Filter: ColumnSearchFilter,
+    }
+  }, []) //we are returing an object with properties that need to be applied to every column in the table
+
   const tableInstance = useTable(
     {
       columns,
       data,
+      defaultColumn, // this is same as specifying Filter property to ColumnFilter for every column in the table
     },
     useFilters,
     useGlobalFilter,

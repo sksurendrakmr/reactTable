@@ -23,19 +23,17 @@ export const COLUMNS = [
     Header: 'Id', //ID columns
     Footer: 'Id',
     accessor: 'id', //we are defining the key which is present in the data
-    Filter: ColumnSearchFilter,
+    disableFilters: true,
   },
   {
     Header: 'First Name',
     Footer: 'First Name',
     accessor: 'first_name',
-    Filter: ColumnSearchFilter,
   },
   {
     Header: 'Last Name',
     Footer: 'Last Name',
     accessor: 'last_name',
-    Filter: ColumnSearchFilter,
   },
   {
     Header: 'Date of Birth',
@@ -44,19 +42,16 @@ export const COLUMNS = [
     Cell: ({ value }) => {
       return format(new Date(value), 'dd/MM/yyyy')
     },
-    Filter: ColumnSearchFilter,
   },
   {
     Header: 'Country',
     Footer: 'Country',
     accessor: 'country',
-    Filter: ColumnSearchFilter,
   },
   {
     Header: 'Phone',
     Footer: 'Phone',
     accessor: 'phone',
-    Filter: ColumnSearchFilter,
   },
 ]
 
