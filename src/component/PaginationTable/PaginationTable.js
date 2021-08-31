@@ -25,6 +25,14 @@ pageOptions and state
 and from state we further destructure pageIndex
 */
 
+/**
+ Jump across pages
+ we will implement it by destructuring two properties
+ a) gotoPage and b) pageCount from the tableInstance
+ -> gotoPage is a function using which we can go to any page
+
+ */
+
 import React, { useMemo } from 'react'
 import { useTable, usePagination } from 'react-table'
 import MOCK_DATA from '../MOCK_DATA.json'
@@ -38,6 +46,7 @@ const PaginationTable = () => {
     {
       columns,
       data,
+      //   initialState: { pageIndex: 2 }, we can override default pageIndex by defining an initialState which is an object
     },
     usePagination
   )
@@ -54,6 +63,8 @@ const PaginationTable = () => {
     canPreviousPage,
     pageOptions,
     state,
+    gotoPage,
+    pageCount,
   } = tableInstance
 
   const { pageIndex } = state
@@ -84,17 +95,35 @@ const PaginationTable = () => {
         </tbody>
       </table>
       <div>
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
           Previous
         </button>
         <button onClick={() => nextPage()} disabled={!canNextPage}>
           Next
+        </button>
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
         </button>{' '}
         <span>
           Page{' '}
           <strong>
             {pageIndex + 1} of {pageOptions.length}
           </strong>{' '}
+        </span>
+        <span>
+          Go to page :{' '}
+          <input
+            type='number'
+            style={{ width: 50 }}
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0
+              gotoPage(pageNumber)
+            }}
+          />
         </span>
       </div>
     </>
